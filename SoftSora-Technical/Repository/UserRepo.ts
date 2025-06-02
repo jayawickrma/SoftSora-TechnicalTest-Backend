@@ -1,5 +1,6 @@
 import {UserDTO} from "../DTO/UserDTO";
 import UserSchema from "../Model/UserModel";
+import e from "express";
 
 
 export async function UserSignUp(user:UserDTO){
