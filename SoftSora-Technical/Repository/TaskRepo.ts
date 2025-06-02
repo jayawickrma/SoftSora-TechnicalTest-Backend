@@ -12,6 +12,18 @@ export async function SaveTask(task:TaskDTO) {
 
     }
 }
+
+export async function DeleteTask(taskID:String){
+    try{
+        const  deleteTask =await TaskSchema.findByIdAndDelete(
+            {taskId :taskID}
+        )
+        return deleteTask;
+    }catch (err){
+        console.log(err);
+        throw err;
+    }
+}
 export async function generateTaskId() {
     try {
         const tasks = await TaskSchema.find({});

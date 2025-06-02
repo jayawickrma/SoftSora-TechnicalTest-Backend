@@ -16,10 +16,9 @@ class TaskController{
             }
     }
 
-
-
     async deleteTask(req:any,resp:any){
         const id  =req.query['id'];
+        console.log(id)
         try{
             await deleteTask(id);
             resp.status(201).json("Deleted..!")
@@ -28,10 +27,8 @@ class TaskController{
         }
     }
 
-
-
     async updateTask(req:any, resp:any){
-        const id =req.query['id'];
+        const id =req.query['taskId'];
         const taskDto:TaskDTO =req.body
         try{
             await updateTask(id,taskDto);
@@ -42,11 +39,10 @@ class TaskController{
         }
     }
 
-
-
     async getAllTasksOfSignedINUser(req:any,resp:any){
-
+        console.log("=================================================================")
         const userEmail =req.body.email
+        console.log("===================================",userEmail)
         try {
             const all = await getAllFromSignedINUser(userEmail);
             resp.json(all);
