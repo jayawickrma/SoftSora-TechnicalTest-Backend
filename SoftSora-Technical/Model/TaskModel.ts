@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
-const taskSchema =new mongoose.Schema({
+
+const taskSchema = new mongoose.Schema({
     title:String,
     description:String,
     priority:String,
@@ -9,5 +10,5 @@ const taskSchema =new mongoose.Schema({
     createdAt:Date
 })
 
-const TaskSchema =mongoose.model('task',taskSchema);
-export default TaskSchema;
+const TaskModel =mongoose.model('Task',taskSchema);
+export default TaskModel;
