@@ -1,4 +1,5 @@
 export interface TaskDTO{
+    taskId:string,
     title:string,
     description:string,
     priority:string,

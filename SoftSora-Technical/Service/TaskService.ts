@@ -1,14 +1,15 @@
 import {TaskDTO} from "../DTO/TaskDTO";
 import TaskSchema from "../Model/TaskModel";
+import {generateTaskId, SaveTask} from "../Repository/TaskRepo";
 
 
 
     export async function saveTask(taskDTO:TaskDTO,email:string) {
         try {
             taskDTO.userEmail =email;
-            let taskToSave = new TaskSchema(taskDTO);
-            const savedTask =  taskToSave.save();
-            return "Task Saved! " + JSON.stringify(savedTask);
+            taskDTO.taskId =await generateTaskId();
+            await SaveTask(taskDTO);
+
         } catch (err) {
             console.log(err)
             throw err;
@@ -21,7 +22,7 @@ import TaskSchema from "../Model/TaskModel";
     export async function deleteTask(id:number){
         try{
             const  deleteTask =await TaskSchema.findByIdAndDelete(
-                {_id :id}
+                {taskId :id}
             )
             return deleteTask;
         }catch (err){
@@ -36,7 +37,7 @@ import TaskSchema from "../Model/TaskModel";
     export async function updateTask(id:number,taskDTO:TaskDTO){
             try{
                 const checkId =await TaskSchema.findOne({
-                    _id:id
+                    taskId:id
                 })
 
                 if (checkId){
@@ -66,4 +67,4 @@ import TaskSchema from "../Model/TaskModel";
                 console.log(err);
                 throw err
             }
-    }
+}

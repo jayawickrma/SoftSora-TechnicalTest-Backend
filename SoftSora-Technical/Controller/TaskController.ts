@@ -31,7 +31,7 @@ class TaskController{
 
 
     async deleteTask(req:any,resp:any){
-        const id  =parseInt(req.query['id']);
+        const id  =req.query['id'];
         try{
             await deleteTask(id);
             resp.status(201).json("Deleted..!")
@@ -43,7 +43,7 @@ class TaskController{
 
 
     async updateTask(req:any, resp:any){
-        const id =parseInt(req.query['id'])
+        const id =req.query['id'];
         const taskDto:TaskDTO =req.body
         try{
             await updateTask(id,taskDto);
