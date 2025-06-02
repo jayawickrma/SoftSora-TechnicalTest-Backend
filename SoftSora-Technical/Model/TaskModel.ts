@@ -7,7 +7,8 @@ const taskSchema = new mongoose.Schema({
     priority:String,
     status:String,
     dueDate:Date,
-    createdAt:Date
+    createdAt:Date,
+    userEmail:String
 })
 
 const TaskSchema =mongoose.model('Task',taskSchema);

@@ -3,8 +3,9 @@ import TaskSchema from "../Model/TaskModel";
 
 
 
-    export async function saveTask(taskDTO:TaskDTO) {
+    export async function saveTask(taskDTO:TaskDTO,email:string) {
         try {
+            taskDTO.userEmail =email;
             let taskToSave = new TaskSchema(taskDTO);
             const savedTask =  taskToSave.save();
             return "Task Saved! " + JSON.stringify(savedTask);
@@ -56,8 +57,11 @@ import TaskSchema from "../Model/TaskModel";
 
 
     export async function getAllFromSignedINUser(email:string){
+       const userEmail =email;
             try{
-                return await TaskSchema.find({})
+                return await TaskSchema.findById({
+                    email :userEmail
+                })
             }catch (err){
                 console.log(err);
                 throw err

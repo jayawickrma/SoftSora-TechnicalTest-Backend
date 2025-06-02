@@ -4,5 +4,6 @@ export interface TaskDTO{
     priority:string,
     status:string,
     dueDate:Date,
-    createdAt:Date
+    createdAt:Date,
+    userEmail:string;
 }

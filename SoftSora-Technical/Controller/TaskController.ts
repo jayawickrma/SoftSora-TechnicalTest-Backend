@@ -1,12 +1,26 @@
 import {deleteTask, getAllFromSignedINUser, saveTask, updateTask} from "../Service/TaskService";
 import {TaskDTO} from "../DTO/TaskDTO";
+import jwt, {Secret} from "jsonwebtoken";
 
 class TaskController{
     async addTask(req:any ,resp:any){
         const data:TaskDTO  =req.body;
         console.log(data)
             try{
-                 await saveTask(data);
+                const authHeader = req.headers.authorization;
+
+                if (!authHeader || !authHeader.startsWith('Bearer ')) {
+                    return resp.status(401).send("Access token missing or malformed.");
+                }
+
+                const token = authHeader.split(' ')[1];
+                const decoded = jwt.verify(token, process.env.SECRET_KEY as Secret) as { email: string };
+
+                const userEmail = decoded.email;
+                console.log("SignedIn User email",userEmail)
+
+
+                 await saveTask(data,userEmail);
                  resp.status(201).json(data);
             }catch (err){
                 resp.status(500).json("Something went wrong when adding task..Try again.");
@@ -43,11 +57,25 @@ class TaskController{
 
 
     async getAllTasksOfSignedINUser(req:any,resp:any){
-        try{
-           // const all =await getAllFromSignedINUser();
-           // return  all;
-        }catch (err){
-            resp.status(500).send("Couldn't load details..try again")
+        try {
+            const authHeader = req.headers.authorization;
+
+            if (!authHeader || !authHeader.startsWith('Bearer ')) {
+                return resp.status(401).send("Access token missing or malformed.");
+            }
+
+            const token = authHeader.split(' ')[1];
+            const decoded = jwt.verify(token, process.env.SECRET_KEY as Secret) as { email: string };
+
+            const userEmail = decoded.email;
+            console.log("SignedIn User email",userEmail)
+
+            const all = await getAllFromSignedINUser(userEmail);
+
+            resp.json(all);
+        } catch (err) {
+            console.error(err);
+            resp.status(403).send("Invalid or expired token.");
         }
     }
 

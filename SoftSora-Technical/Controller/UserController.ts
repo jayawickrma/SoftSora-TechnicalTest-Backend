@@ -9,7 +9,7 @@ class UserController{
         const name = req.body.name
 
         const user:UserDTO = {email,password,name};
-
+            const singedInUserEmail = req.body.email;
         try{
             const verified = await findByEmail(user);
             if (verified){
