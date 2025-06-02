@@ -1,6 +1,6 @@
 import {UserDTO} from "../DTO/UserDTO";
 import UserSchema from "../Model/UserModel";
-
+import bcrypt from 'bcrypt'
 
     export async function finsByEmail(verifyUser:UserDTO){
         try{
@@ -17,6 +17,7 @@ import UserSchema from "../Model/UserModel";
     }
 
     export async function createUser(user:UserDTO){
+        const hashedPw =await bcrypt.hash(user.password,10)
         try{
             let createUser =new UserSchema(user);
             const save  = await createUser.save();
