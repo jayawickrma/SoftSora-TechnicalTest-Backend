@@ -19,11 +19,10 @@ import {DeleteTask, generateTaskId, SaveTask} from "../Repository/TaskRepo";
 
 
 
-    export async function deleteTask(id:string){
-        const taskID =id
+    export async function deleteTask(taskId:string){
         try{
-            await DeleteTask(id)
-            return "Deleted Successfully" +id
+            await DeleteTask(taskId)
+            return "Deleted Successfully" +taskId
         }catch (err){
             console.log(err);
             throw err;
@@ -57,11 +56,13 @@ import {DeleteTask, generateTaskId, SaveTask} from "../Repository/TaskRepo";
 
 
     export async function getAllFromSignedINUser(email:string){
-       const userEmail =email;
             try{
-                return await TaskSchema.find({
-                    email :userEmail
+                const getall = await TaskSchema.find({
+                    userEmail :email
                 })
+
+                console.log(getall)
+                return getall;
             }catch (err){
                 console.log(err);
                 throw err

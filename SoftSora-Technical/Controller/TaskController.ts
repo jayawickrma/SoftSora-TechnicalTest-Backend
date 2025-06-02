@@ -17,8 +17,7 @@ class TaskController{
     }
 
     async deleteTask(req:any,resp:any){
-        const id  =req.query['id'];
-        console.log(id)
+        const id  =req.query['taskId'];
         try{
             await deleteTask(id);
             resp.status(201).json("Deleted..!")
@@ -32,7 +31,7 @@ class TaskController{
         const taskDto:TaskDTO =req.body
         try{
             await updateTask(id,taskDto);
-            resp.status(200).json("Updated...")
+            resp.status(200).json("Updated...",taskDto)
 
         }catch (err){
             resp.status(500).send("Couldn't update ... Try again..")
@@ -40,9 +39,7 @@ class TaskController{
     }
 
     async getAllTasksOfSignedINUser(req:any,resp:any){
-        console.log("=================================================================")
         const userEmail =req.body.email
-        console.log("===================================",userEmail)
         try {
             const all = await getAllFromSignedINUser(userEmail);
             resp.json(all);
