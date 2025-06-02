@@ -6,20 +6,8 @@ class TaskController{
     async addTask(req:any ,resp:any){
         const data:TaskDTO  =req.body;
         console.log(data)
+        const userEmail =req.body.email
             try{
-                const authHeader = req.headers.authorization;
-
-                if (!authHeader || !authHeader.startsWith('Bearer ')) {
-                    return resp.status(401).send("Access token missing or malformed.");
-                }
-
-                const token = authHeader.split(' ')[1];
-                const decoded = jwt.verify(token, process.env.SECRET_KEY as Secret) as { email: string };
-
-                const userEmail = decoded.email;
-                console.log("SignedIn User email",userEmail)
-
-
                  await saveTask(data,userEmail);
                  resp.status(201).json(data);
             }catch (err){
@@ -57,21 +45,10 @@ class TaskController{
 
 
     async getAllTasksOfSignedINUser(req:any,resp:any){
+
+        const userEmail =req.body.email
         try {
-            const authHeader = req.headers.authorization;
-
-            if (!authHeader || !authHeader.startsWith('Bearer ')) {
-                return resp.status(401).send("Access token missing or malformed.");
-            }
-
-            const token = authHeader.split(' ')[1];
-            const decoded = jwt.verify(token, process.env.SECRET_KEY as Secret) as { email: string };
-
-            const userEmail = decoded.email;
-            console.log("SignedIn User email",userEmail)
-
             const all = await getAllFromSignedINUser(userEmail);
-
             resp.json(all);
         } catch (err) {
             console.error(err);
