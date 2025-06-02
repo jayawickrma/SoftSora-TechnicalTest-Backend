@@ -1,13 +1,11 @@
 import {TaskDTO} from "../DTO/TaskDTO";
 import TaskSchema from "../Model/TaskModel";
-import TaskModel from "../Model/TaskModel";
 
 
 
     export async function saveTask(taskDTO:TaskDTO) {
         try {
-            let taskToSave = new TaskModel(taskDTO);
-            // @ts-ignore
+            let taskToSave = new TaskSchema(taskDTO);
             const savedTask =  taskToSave.save();
             return "Task Saved! " + JSON.stringify(savedTask);
         } catch (err) {
