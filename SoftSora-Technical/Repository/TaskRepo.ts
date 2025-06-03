@@ -15,7 +15,7 @@ export async function SaveTask(task:TaskDTO) {
 
 export async function DeleteTask(taskID:String){
     try{
-        const  deleteTask =await TaskSchema.findByIdAndDelete(
+        const  deleteTask =await TaskSchema.findOneAndDelete(
             {taskId :taskID}
         )
         return deleteTask;

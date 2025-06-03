@@ -12,7 +12,7 @@ class TaskRouter{
     }
     initialStates():void{
         this.router.post('/addTask',this.taskController.addTask);
-        this.router.get('/getAllOfSignedInUser',this.taskController.getAllTasksOfSignedINUser);
+        this.router.post('/getAllOfSignedInUser',this.taskController.getAllTasksOfSignedINUser);
         this.router.delete('/deleteTask',this.taskController.deleteTask);
         this.router.put('/updateTask',this.taskController.updateTask)
     }

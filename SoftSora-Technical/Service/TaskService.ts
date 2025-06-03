@@ -32,7 +32,7 @@ import {DeleteTask, generateTaskId, SaveTask} from "../Repository/TaskRepo";
 
 
 
-    export async function updateTask(taskId:number,taskDTO:TaskDTO){
+    export async function updateTask(taskId:string,taskDTO:TaskDTO){
             try{
                 const checkId =await TaskSchema.findOne({
                     taskId:taskId
