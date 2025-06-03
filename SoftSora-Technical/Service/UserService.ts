@@ -4,19 +4,19 @@ import bcrypt from 'bcrypt'
 import {UserSignUp} from "../Repository/UserRepo";
 import jwt from "jsonwebtoken";
 
-export async function findByEmail(verifyUser:UserDTO){
-    try{
-        const findEmail = await UserSchema.findOne({
-            email:verifyUser.email
-        });
-        if (findEmail){
-            return "User Already Exit..."
+    export async function findByEmail(verifyUser:UserDTO){
+        try{
+            const findEmail = await UserSchema.findOne({
+                email:verifyUser.email
+            });
+            if (findEmail){
+                return "User Already Exit..."
+            }
+        }catch (err){
+            console.log(err);
+            throw err
         }
-    }catch (err){
-        console.log(err);
-        throw err
     }
-}
 
     export async function createUser(user:UserDTO){
         const hashedPw =await bcrypt.hash(user.password,10)

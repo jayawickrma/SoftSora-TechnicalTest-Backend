@@ -11,6 +11,7 @@ app.use(express.urlencoded({extended:true}))
 
 connectDB()
 // mongodb://localhost:27017/
+
 app.use(cors({
     origin: "http://localhost:5173",
     methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
