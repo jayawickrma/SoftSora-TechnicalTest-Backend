@@ -24,6 +24,26 @@ export async function DeleteTask(taskID:String){
         throw err;
     }
 }
+
+export async function UpdateTask(taskId:string ,taskDTO:TaskDTO){
+    try{
+        const checkId =await TaskSchema.findOne({
+            taskId:taskId
+        })
+
+        if (checkId){
+            const updatedTask =await TaskSchema.findOneAndUpdate(
+                {taskId :taskId},
+                {$set :taskDTO},
+                {new :true}
+            )
+            return updatedTask
+        }
+    }catch (err){
+        console.log(err);
+        throw err;
+    }
+}
 export async function generateTaskId() {
     try {
         const tasks = await TaskSchema.find({});
