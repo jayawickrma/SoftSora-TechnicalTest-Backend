@@ -33,6 +33,19 @@ class UserController{
             resp.status(401).json('UnAuthorized user and cant log into the System ..')
         }
     }
+    async refreshToken(req:any,resp:any){
+        const authHeader =req.headers.authorization;
+        const refresh_token =authHeader?.split(' ')[1];
+
+        if (!refresh_token)resp.status(401).send('No Token Provided...')
+
+        try{
+
+        }catch (err){
+            console.log(err);
+            resp.status(401).json(err);
+        }
+    }
 
 
 }
